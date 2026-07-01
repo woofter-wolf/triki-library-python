@@ -24,7 +24,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = ""
+Homepage = "https://github.com/woofter-wolf/triki-library-python"
+Repository = "https://github.com/woofter-wolf/triki-library-python"
+Issues = "https://github.com/woofter-wolf/triki-library-python"
 
 [build-system]
 requires = ["hatchling"]
