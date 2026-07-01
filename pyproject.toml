@@ -1,6 +1,6 @@
 [project]
 name = "triki-library"
-version = "0.1"
+version = "0.1.1"
 description = "A Python library for integrating the TRIKI motion controller (made by Caps Apps) into your projects."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -24,9 +24,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/woofter-wolf/triki-library-python"
-Repository = "https://github.com/woofter-wolf/triki-library-python"
-Issues = "https://github.com/woofter-wolf/triki-library-python"
+Homepage = ""
 
 [build-system]
 requires = ["hatchling"]

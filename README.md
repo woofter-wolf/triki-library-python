@@ -17,6 +17,7 @@ I wanted to make this library to give everyone a way to integrate this niche con
 - Scan for TRIKI controllers
 - Connect to TRIKI controller
 - Get battery level
+- Get FW version
 - Get IMU data from the controller
 - Get state of the built-in button
 - Control built-in LED
@@ -58,6 +59,7 @@ await controller.connect()
 ```python
 controller.is_connected # Check if device is connected
 controller.battery_level # Get battery level
+device.firmware_version # Get FW version
 ```
 ```python
 controller.spin_x # Get X Spin

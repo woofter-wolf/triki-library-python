@@ -37,6 +37,7 @@ async def main():
     try:
         while device.is_connected:
             print(f"Battery level: {device.battery_level}%") # Battery level
+            print(f"FW Version: {device.firmware_version}")  # FW version
             # GYRO
             print(f"Spin X: {device.spin_x}", end=" | ") # X spin
             print(f"Spin Y: {device.spin_y}", end=" | ") # Y spin

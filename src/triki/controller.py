@@ -6,6 +6,7 @@ from .exceptions import TRIKIDeviceNotFoundError, TRIKINotConnectedError, TRIKIC
 UART_RX_UUID = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
 UART_TX_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
 BATTERY_LEVEL_UUID = "00002a19-0000-1000-8000-00805f9b34fb"
+FIRMWARE_VERSION_UUID = "00002a26-0000-1000-8000-00805f9b34fb";
 LED_CHARACTERISTIC_UUID = "6e400004-b5a3-f393-e0a9-e50e24dcca9e"
 START_STREAM_COMMAND = bytes.fromhex("20 10 00 d0 07 34 00 03")
 
@@ -20,7 +21,9 @@ class TRIKIController:
     """
     __device_client: BleakClient = None
     __bt_address: str = "AA:BB:CC:DD:EE:FF"
+
     __battery_level: int = 0
+    __firmware_version: str = ""
     __sensor_spin_x: int = 0
     __sensor_spin_y: int = 0
     __sensor_turn_z: int = 0
@@ -77,6 +80,9 @@ class TRIKIController:
                 battery_data = await self.__device_client.read_gatt_char(BATTERY_LEVEL_UUID)
                 self.__battery_level = int(battery_data[0])
 
+                firmware_data = await self.__device_client.read_gatt_char(FIRMWARE_VERSION_UUID)
+                self.__firmware_version = firmware_data.decode("utf-8").strip("\x00")
+
                 await self.__device_client.start_notify(UART_TX_UUID, self.__parse_received_data)
 
                 await self.__device_client.write_gatt_char(
@@ -110,6 +116,15 @@ class TRIKIController:
                 "Cannot read battery_level, because the TRIKI controller is not connected"
             )
         return self.__battery_level
+
+    @property
+    def firmware_version(self) -> str:
+        """Get the TRIKI controller FW version"""
+        if not self.is_connected:
+            raise TRIKINotConnectedError(
+                "Cannot read firmware_version, because the TRIKI controller is not connected"
+            )
+        return self.__firmware_version
 
     @property
     def spin_x(self) -> int:
